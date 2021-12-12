@@ -22,13 +22,6 @@ node {
 // other tasks that are required to actually call the build "built."
 task build
 
-// All we need to do, in order for this build to actually run, is to call some of the tasks
-// built in to the node.js and npm plugins. We're going to call them here.
-build.dependsOn npm_build
-npm_build.dependsOn npmInstall
-npm_build.dependsOn npm_test
-npm_test.dependsOn npmInstall
-
 // Create a task that is the Zip type
     task zip(type: Zip) {
 // Find the files at . (dot) which means "right here in the root of the directory"
@@ -57,3 +50,10 @@ npm_test.dependsOn npmInstall
           build.dependsOn zip
 // Here, we want to make sure our zip task runs after npm_build    
           zip.dependsOn npm_build
+
+// All we need to do, in order for this build to actually run, is to call some of the tasks
+// built in to the node.js and npm plugins. We're going to call them here.
+build.dependsOn npm_build
+npm_build.dependsOn npmInstall
+npm_build.dependsOn npm_test
+npm_test.dependsOn npmInstall
